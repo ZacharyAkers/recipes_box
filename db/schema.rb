@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170729180603) do
     t.string "name"
     t.decimal "cook_time"
     t.decimal "prep_time"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
