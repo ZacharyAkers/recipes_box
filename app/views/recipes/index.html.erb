@@ -8,6 +8,7 @@
     <%= recipe.prep_time %>
     <%= recipe.cook_time %>
     <%= recipe.url %>
+    <%= link_to 'Show', recipe_path(recipe) %>
     <%= link_to "Edit", edit_recipe_path(recipe) %>
     <%= link_to "Destroy", recipe, method: :delete %>
 <% end %>

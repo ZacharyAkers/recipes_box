@@ -2,6 +2,8 @@
 
 one:
   description: MyText
+  recipe: one
 
 two:
   description: MyText
+  recipe: two

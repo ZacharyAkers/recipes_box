@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-    before_action :find_recipe, only: [:show, :destroy, :edit]
+    before_action :find_recipe, only: [:show, :destroy, :update, :edit]
 
     def index
         @recipes = Recipe.all
@@ -18,16 +18,22 @@ class RecipesController < ApplicationController
       if @recipe.save
         redirect_to recipes_path
       else
-        flash ("Book not saved")
+        flash ("Recipes not saved")
         redirect_to new_recipe_path
       end
     end
 
     def show
+        @recipe
     end
 
     def destroy
       @recipe.destroy
+      redirect_to recipes_path
+    end
+
+    def update
+      @recipe.update(recipe_params)
       redirect_to recipes_path
     end
 
