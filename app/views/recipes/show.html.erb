@@ -13,6 +13,7 @@
 <% @recipe.ingredients.each do |ingredient| %>
   <p>
     <strong>Measurement:</strong>
+    <%= ingredient.amount %>
     <%= ingredient.measurements %>
   </p>
  
@@ -32,6 +33,10 @@
 
 <h2>Add a Ingredient:</h2>
 <%= form_for([@recipe, @recipe.ingredients.build]) do |f| %>
+  <p>
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </p>
   <p>
     <%= f.label :measurements %><br>
     <%= f.text_field :measurements %>

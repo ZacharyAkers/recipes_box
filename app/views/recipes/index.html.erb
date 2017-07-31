@@ -4,6 +4,7 @@
 <br>
 <br>
 <% @recipes.each do |recipe| %>
+    <p>
     <%= recipe.name %>
     <%= recipe.prep_time %>
     <%= recipe.cook_time %>
@@ -11,4 +12,5 @@
     <%= link_to 'Show', recipe_path(recipe) %>
     <%= link_to "Edit", edit_recipe_path(recipe) %>
     <%= link_to "Destroy", recipe, method: :delete %>
+    </p>
 <% end %>

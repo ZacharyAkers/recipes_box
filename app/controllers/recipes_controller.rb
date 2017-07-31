@@ -1,48 +1,52 @@
 class RecipesController < ApplicationController
-    before_action :find_recipe, only: [:show, :destroy, :update, :edit]
+   before_action :find_recipe, only: [:show, :destroy, :edit, :update]
+   before_action :authorize, except: [:show, :index]
 
-    def index
-        @recipes = Recipe.all
-    end
+  def index
+    @recipes = Recipe.all
+  end
 
-    def new
-        @recipe = Recipe.new
-    end
+  def new
+    @recipe = Recipe.new
+  end
 
-    def edit
-        @recipe
-    end
-
-    def create
-      @recipe = Recipe.new(recipe_params)
-      if @recipe.save
+  def create
+     @recipe = Recipe.new(recipe_params)
+     @recipe[:user_id] = current_user.id
+     if @recipe.save
         redirect_to recipes_path
-      else
-        flash ("Recipes not saved")
-        redirect_to new_recipe_path
-      end
-    end
+     else
+        redirect_to new_recipes_path
+     end
+  end
 
-    def show
-        @recipe
-    end
+  def show
+     @recipe
+  end
 
-    def destroy
-      @recipe.destroy
-      redirect_to recipes_path
-    end
+  def edit
+     @recipe
+  end
 
-    def update
-      @recipe.update(recipe_params)
-      redirect_to recipes_path
-    end
+  def destroy
+     @recipe.steps.destroy_all
+     @recipe.ingredients.destroy_all
+     @recipe.destroy
+     redirect_to recipes_path
+  end
 
-    private
-    def recipe_params
-        params.require(:recipe).permit(:name, :cook_time, :prep_time, :url)
-    end
+  def update
+     @recipe.update(recipe_params)
+     redirect_to recipes_path
+  end
 
-    def find_recipe
-      @recipe = Recipe.find(params[:id])
-    end
+  private
+
+     def recipe_params
+        params.require(:recipe).permit(:name, :cook_time, :prep_time)
+     end
+
+     def find_recipe
+        @recipe = Recipe.find(params[:id])
+     end
 end
